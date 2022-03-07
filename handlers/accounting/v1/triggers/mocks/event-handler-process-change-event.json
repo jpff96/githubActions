@@ -1,0 +1,72 @@
+{
+  "version": "0",
+  "id": "6e3b7688-ca19-2582-d279-c4facbc0dfd2",
+  "detail-type": "ProcessChangePayment",
+  "source": "api.policy",
+  "account": "200159443319",
+  "time": "2020-05-29T00:48:42Z",
+  "region": "us-west-2",
+  "resources": [],
+  "detail": {
+    "balanceDue": {
+      "balanceType": "MainBalanceDue",
+      "subtotal": 2943.5,
+      "dueDate": "2021-03-01",
+      "description": "Premiums balance due",
+      "version": "1",
+      "lineItems": [
+        {
+          "amount": 2916.5,
+          "itemType": "Premium",
+          "account": "Main",
+          "writingCompany": "FPIC"
+        },
+        {
+          "amount": 25,
+          "itemType": "Fee",
+          "account": "MainPolicyFee",
+          "writingCompany": "FPIC"
+        },
+        {
+          "amount": 2,
+          "itemType": "Fee",
+          "account": "EMPA",
+          "writingCompany": "FPIC"
+        }
+      ],
+      "effectiveDate": "2021-03-01",
+      "policyNumber": "OH-000000745"
+    },
+    "companionBalanceDue": {
+      "balanceType": "CompanionBalanceDue",
+      "subtotal": 300.5,
+      "dueDate": "2021-03-01",
+      "description": "Premiums balance due",
+      "version": "1",
+      "lineItems": [
+        {
+          "amount": 275.5,
+          "itemType": "Premium",
+          "account": "Companion",
+          "writingCompany": "FPIC"
+        },
+        {
+          "amount": 25,
+          "itemType": "Fee",
+          "account": "CompanionPolicyFee",
+          "writingCompany": "FPIC"
+        }
+      ],
+      "effectiveDate": "2021-03-01",
+      "policyNumber": "OH-000000763"
+    },
+    "key": {
+      "entityId": "00000000-0000-0000-0000-000000000000",
+      "policyId": "00000000-0000-0000-0000-000000000005_OH-000000763",
+      "transEffectiveDate": "2021-03-01",
+      "termEffectiveDate": "2021-03-01",
+      "termExpiratationDate": "2022-03-01",
+      "productKey": "OpenHouse Choice Florida"
+    }
+  }
+}

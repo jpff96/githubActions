@@ -1,0 +1,106 @@
+{
+   "httpMethod": "POST",
+   "headers": {
+      "origin": "http://localhost:3000",
+      "content-type": "application/json"
+   },
+   "path": "/accounting/v1/balanceDue",
+   "requestContext": {
+      "authorizer": {
+         "tenantId": "00000000-0000-0000-0000-000000000005",
+         "principalId": "cognitoIdentityId-USER-1234",
+         "email": "test@user.com",
+         "isConsumer": "false"
+      }
+   },
+   "body": {
+      "policyId": "00000000-0000-0000-0000-000000000005_OH-000009010",
+      "termEffectiveDate": "2021-10-26",
+      "termExpirationDate": "2022-10-26",
+      "productKey": "OpenHouse Choice Florida",
+      "ownerEntityId": "00000000-0000-0000-0000-000000000005",
+      "mainBalanceDue": {
+         "balanceType": "MainBalanceDue",
+         "subtotal": 1912,
+         "dueDate": "2021-10-26",
+         "description": "Main premiums due",
+         "lineItems": [
+            {
+               "amount": 1885,
+               "itemType": "Premium",
+               "account": "Main",
+               "writingCompany": "FPIC"
+            },
+            {
+               "amount": 25,
+               "itemType": "Fee",
+               "account": "MainPolicyFee",
+               "writingCompany": "FPIC"
+            },
+            {
+               "amount": 2,
+               "itemType": "Fee",
+               "account": "EMPA",
+               "writingCompany": "FPIC"
+            }
+         ],
+         "effectiveDate": "2021-10-26",
+         "policyNumber": "OH-000009010",
+         "version": "1"
+      },
+      "companionBalanceDue": {
+         "balanceType": "CompanionBalanceDue",
+         "subtotal": 89.25,
+         "dueDate": "2021-10-26",
+         "description": "Companion premiums due",
+         "lineItems": [
+            {
+               "amount": 50,
+               "itemType": "Premium",
+               "account": "Companion",
+               "writingCompany": "FIUC"
+            },
+            {
+               "amount": 35,
+               "itemType": "Fee",
+               "account": "CompanionPolicyFee",
+               "writingCompany": "FIUC"
+            },
+            {
+               "amount": 4.2,
+               "itemType": "Tax",
+               "account": "DFS",
+               "writingCompany": "FIUC"
+            },
+            {
+               "amount": 0.05,
+               "itemType": "Tax",
+               "account": "FSLSO",
+               "writingCompany": "FIUC"
+            }
+         ],
+         "effectiveDate": "2021-10-26",
+         "policyNumber": "OH-000009010SD1",
+         "version": "1"
+      },
+      "paymentPlan": {
+         "planType": "FullPay",
+         "responsibleParty": "Mortgagee"
+      },
+      "customerId": "C-0000000001",
+      "mortgagee": {
+         "companyName": "Company1",
+         "loanNumber": "UnitTestLoan1",
+         "address": {
+            "line1": "1 Main Street",
+            "line2": "",
+            "city": "Kalamazoo",
+            "state": "FL",
+            "postalCode": "12345-1234",
+            "country": "USA"
+         },
+         "mortgageeType": "Primary",
+         "phoneNumber": "(123) 123-1231"
+      }
+   }
+}

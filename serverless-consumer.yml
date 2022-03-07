@@ -1,0 +1,132 @@
+service: solstice-payment-api-consumer
+
+configValidationMode: error
+frameworkVersion: ^3.1.0
+
+plugins:
+  - serverless-prune-plugin
+  - serverless-dynamodb-local
+  - serverless-webpack
+  - serverless-offline
+
+package:
+  individually: true
+  patterns:
+    - '!.env'
+    - '!.gitignore'
+    - '!.prettierrc.json'
+    - '!CODEOWNERS'
+    - '!package-lock.json'
+    - '!package.json'
+    - '!README.md'
+    - '!.tsconfig.cjs.json'
+    - '!.tsconfig.json'
+    - '!bin/**'
+    - '!handlers/**'
+    - '!libs/**'
+
+custom:
+  Stack: solstice-api
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  stage: ${opt:stage, self:provider.stage}
+  prune:
+    automatic: true
+    number: 2
+    stage: dev
+    region: us-west-2
+  serverless-offline:
+    port: 4000
+  dynamodb:
+    start:
+      migrate: true
+    stages:
+      - dev
+  balanceTableName: ${self:provider.stage}.${self:custom.Stack}.accounting.balance
+  billingTableName: ${self:provider.stage}.${self:custom.Stack}.accounting.billing
+  disbursementTableName: ${self:provider.stage}.${self:custom.Stack}.accounting.disbursement
+  eventBusName: ${opt:logeventseventbusname, env:LOG_EVENTS_EVENT_BUS_NAME, ssm:/${self:provider.stage}/LOG_EVENTS_EVENT_BUS_NAME}
+  policyEventBusName: ${self:provider.stage}.${self:custom.Stack}.policy-events
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: us-west-2
+  tracing:
+    lambda: true
+  apiGateway:
+    restApiId:
+      'Fn::ImportValue': ${self:provider.stage}-${self:custom.Stack}-consumerRestApiId
+    restApiRootResourceId:
+      'Fn::ImportValue': ${self:provider.stage}-${self:custom.Stack}-consumerRootResourceId
+
+  environment:
+    SOLSTICE_API_GW_ROOT_URL: ${opt:rootApi, env:SOLSTICE_API_GW_ROOT_URL, ssm:/${self:provider.stage}/SOLSTICE_API_GW_ROOT_URL}
+    SOLSTICE_API_GW_CONSUMER_ROOT_URL: ${opt:consumerApi, env:SOLSTICE_API_GW_CONSUMER_ROOT_URL, ssm:/${self:provider.stage}/CONSUMER/REACT_APP_SOLSTICE_HOST}
+    BALANCE_TABLE_NAME: ${self:custom.balanceTableName}
+    BILLING_TABLE_NAME: ${self:custom.billingTableName}
+    DISBURSEMENT_TABLE_NAME: ${self:custom.disbursementTableName}
+    EVENT_BUS_NAME: ${self:custom.eventBusName}
+    AWS_SERVICE_REGION: ${opt:dbuser, env:AWS_SERVICE_REGION, ssm:/${self:provider.stage}/AWS_SERVICE_REGION}
+    ENTITY_TABLE_NAME: ${opt:entitytablename, env:ENTITY_TABLE_NAME, ssm:/${self:provider.stage}/ENTITY_TABLE_NAME}
+    POLICY_EVENT_BUS_NAME: ${self:custom.policyEventBusName}
+    PAYMENT_ENABLE_TRACE: ${opt:paymentenabletrace, env:PAYMENT_ENABLE_TRACE, ssm:/${self:provider.stage}/PAYMENT_ENABLE_TRACE}
+
+  vpc:
+    securityGroupIds:
+      - ${opt:secGroupId, env:SEC_GROUP_ID, ssm:/${self:provider.stage}/SEC_GROUP_ID}
+    subnetIds:
+      - ${opt:subnetId1, env:SUBNET_ID_1, ssm:/${self:provider.stage}/SUBNET_ID_1}
+      - ${opt:subnetId2, env:SUBNET_ID_2, ssm:/${self:provider.stage}/SUBNET_ID_2}
+      - ${opt:subnetId3, env:SUBNET_ID_3, ssm:/${self:provider.stage}/SUBNET_ID_3}
+  iam:
+    deploymentRole: ${opt:cfnRoleArn, env:CFN_ROLE_ARN, ssm:/${self:provider.stage}/CFN_ROLE_ARN}
+    role: ${opt:lambdaRoleArn, env:LAMBDA_ROLE_ARN, ssm:/${self:provider.stage}/LAMBDA_ROLE_ARN}
+
+  deploymentBucket:
+    name: ${opt:deploymentBucket, env:DEPLOYMENT_BUCKET, ssm:/${self:provider.stage}/DEPLOYMENT_BUCKET}
+
+functions:
+  # Bill2Pay
+  bill2pay:
+    handler: dist/handlers/bill2pay/main.main
+    events:
+      - http:
+          path: /payment/v1/bill2pay
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer-consumer
+      - http:
+          path: /payment/v1/bill2pay/{any+}
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer-consumer
+
+  #  Accounting
+  accounting:
+    handler: dist/handlers/accounting/v1/main.main
+    events:
+      - http:
+          path: /accounting
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer-consumer
+      - http:
+          path: /accounting/{any+}
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer-consumer

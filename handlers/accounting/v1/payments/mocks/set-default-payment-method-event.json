@@ -1,0 +1,25 @@
+{
+    "httpMethod": "POST",
+    "headers": {
+        "origin": "http://localhost:3000",
+        "content-type": "application/json"
+    },
+    "path": "/accounting/v1/setDefaultPaymentMethod",
+    "requestContext": {
+        "authorizer": {
+            "tenantId": "00000000-0000-0000-0000-000000000005",
+            "principalId": "cognitoIdentityId-USER-1234",
+            "email": "test@user.com",
+            "isConsumer": "false"
+        }
+    },
+    "body": {
+        "policyId": "00000000-0000-0000-0000-000000000005_OH-000000003",
+        "paymentMethod": {
+            "nickName": "Visa - ****4242",
+            "type": "Credit",
+            "expirationDate": "2022-11-30",
+            "token": "BACBA70FFD24469D995FD63F75D1A256"
+        }
+    }
+}

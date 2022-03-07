@@ -1,0 +1,23 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/accounting/v1",
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  },
+  "body": {
+    "policyId": "00000000-0000-0000-0000-000000000005_TESTPOLNUM",
+    "version": "1",
+    "providerReference": "MOCK_PAYMENT_REF_ID",
+    "cognitoUserId": "germantest1fagalde@gmail.com",
+    "customerId": "123"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/disbursement/v1/00000000-0000-0000-0000-000000000005_17/action",
+  "body": {
+    "action": "MoveBatch"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

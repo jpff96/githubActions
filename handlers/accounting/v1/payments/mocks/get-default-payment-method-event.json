@@ -1,0 +1,18 @@
+{
+    "httpMethod": "GET",
+    "headers": {
+      "origin": "http://localhost:3000"
+    },
+    "path": "/accounting/v1/getDefaultPaymentMethod/00000000-0000-0000-0000-000000000005_OH-000002051",
+    "queryStringParameters": {
+    },
+    "requestContext": {
+      "authorizer": {
+        "tenantId": "00000000-0000-0000-0000-000000000005",
+        "principalId": "cognitoIdentityId-USER-1234",
+        "email": "test@user.com",
+        "isConsumer": "false"
+      }
+    }
+  }
+  

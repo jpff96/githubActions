@@ -1,0 +1,37 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/lockbox/v1/00000000-0000-0000-0000-000000000005_004/transaction/2020122100001001/action",
+  "body": {
+    "action": "Refund",
+    "amount": 2000,
+    "deliveryMethod": "Standard",
+    "recipients": [
+      {
+        "address": {
+          "line1": "13024 Pechora Ct",
+          "city": "Jacksonville",
+          "state": "FL",
+          "postalCode": "32246"
+        },
+        "email": "azsdasd@asd.com",
+        "phoneNumber": "5555-5555",
+        "companyName": "Bank of America",
+        "isDefaultRecipient": true,
+        "partyType": "Business"
+      }
+    ],
+    "reason": "Asd"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

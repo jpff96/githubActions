@@ -1,0 +1,83 @@
+{
+  "version": "0",
+  "id": "d921a323-f368-f929-6b26-4dc2d40bcc79",
+  "detail-type": "ProcessedRefund",
+  "source": "api.policy",
+  "account": "200159443319",
+  "time": "2021-12-22T12:24:50Z",
+  "region": "us-west-2",
+  "resources": [],
+  "detail": {
+    "payments": [
+      {
+        "amount": 88.62,
+        "costType": "PremiumRefund",
+        "deliveryMethod": "Standard",
+        "disbursementType": "Disbursement",
+        "lineItems": [
+          {
+            "amount": 0.62,
+            "itemType": "Fee",
+            "account": "FIGA",
+            "writingCompany": "FPIC"
+          },
+          {
+            "amount": 88,
+            "itemType": "Premium",
+            "account": "Main",
+            "writingCompany": "FPIC"
+          }
+        ],
+        "mailingAddress": {
+          "line1": "13024 Pechora Ct",
+          "line2": " ",
+          "city": "Jacksonville",
+          "state": "FL",
+          "postalCode": "32246",
+          "stateCode": "",
+          "countryCode": ""
+        },
+        "policyId": "00000000-0000-0000-0000-000000000005_OH-000000529",
+        "policyNumber": "OH-000000529",
+        "productKey": "OpenHouse Choice Florida",
+        "recipients": [
+          {
+            "address": {
+              "line1": "13024 Pechora Ct",
+              "line2": " ",
+              "city": "Jacksonville",
+              "state": "FL",
+              "postalCode": "32246",
+              "stateCode": "",
+              "countryCode": ""
+            },
+            "email": "bbrizolara@codigodelsur.com",
+            "firstName": "Bruno",
+            "lastName": "Brizolara",
+            "isDefaultRecipient": true,
+            "partyType": "Consumer",
+            "phoneNumber": "(099) 057-5863"
+          }
+        ],
+        "referenceId": "00000000-0000-0000-0000-000000000005_OH-000000529",
+        "referenceNumber": "OH-000000529",
+        "referenceType": "Policy",
+        "shippingEmail": "bbrizolara@codigodelsur.com",
+        "shippingFirstName": "Bruno",
+        "shippingLastName": "Brizolara",
+        "reason": "PolicyChange"
+      }
+    ],
+    "key": {
+      "entityId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "e2435c49-c044-4950-b6e7-edddf0536b3f",
+      "writingCompanyEntityId": "00000000-0000-0000-0000-000000000002",
+      "policyId": "00000000-0000-0000-0000-000000000005_OH-000000529",
+      "formType": "DP2",
+      "state": "FL",
+      "referenceId": "00000000-0000-0000-0000-000000000005_OH-000000529",
+      "version": "2",
+      "termEffectiveDate": "2022-01-05"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "version": "0",
+  "id": "6e3b7688-ca19-2582-d279-c4facbc0dfd2",
+  "detail-type": "PolicyIssuedChangeMortgagee",
+  "source": "api.policy",
+  "account": "200159443319",
+  "time": "2020-05-29T00:48:42Z",
+  "region": "us-west-2",
+  "resources": [],
+  "detail": {
+    "mortgagee": {
+      "address": {
+        "city": "Fk City",
+        "line1": "Fk St 888",
+        "postalCode": "12345",
+        "state": "FL"
+      },
+      "companyName": "Mortgagee Test Company",
+      "loanNumber": "12345678",
+      "mortgageeType": "Primary",
+      "phoneNumber": "(123) 123-12313"
+    },
+    "key": {
+      "entityId": "00000000-0000-0000-0000-000000000005",
+      "policyId": "00000000-0000-0000-0000-000000000005_TESTPOLNUM"
+    }
+  }
+}

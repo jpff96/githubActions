@@ -1,0 +1,15 @@
+{  
+  "httpMethod": "GET",
+  "headers": {
+    "origin": "http://localhost:3000"
+  },
+  "path": "/lockbox/v1/00000000-0000-0000-0000-000000000005_001/transaction/00001/images",
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

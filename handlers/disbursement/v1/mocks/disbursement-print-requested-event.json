@@ -1,0 +1,62 @@
+{
+  "version": "0",
+  "id": "6e3b7688-ca19-2582-d279-c4facbc0dfd2",
+  "detail-type": "PrintRequested",
+  "source": "api.policy",
+  "account": "200159443319",
+  "time": "2020-05-29T00:48:42Z",
+  "region": "us-west-2",
+  "resources": [],
+  "detail": {
+    "key": {
+      "entityId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "09f77dcc-9b4c-44f6-9c85-a02f880b2599",
+      "writingCompanyEntityId": "00000000-0000-0000-0000-000000000002",
+      "policyId": "00000000-0000-0000-0000-000000000005_OH-000000607",
+      "formType": "DP2",
+      "state": "FL",
+      "referenceId": "00000000-0000-0000-0000-000000000005_OH-000000607"
+    },
+    "disbursementPayload": {
+      "amount": 0,
+      "disbursementType": "DisbursementPrint",
+      "costType": "ZeroPayment",
+      "productKey": "OpenHouse Choice Florida",
+      "documentKeyList": [
+        "documents/clients/00000000-0000-0000-0000-000000000005/completed/1620163440107_undefined_00000000-0000-0000-0000-000000000005.pdf"
+      ],
+      "mailingAddress": {
+        "city": "Jacksonville",
+        "countryCode": "US",
+        "county": "Duval",
+        "line1": "13024 Pechora Ct",
+        "line2": " ",
+        "postalCode": "32246",
+        "state": "FL"
+      },
+      "policyId": "00000000-0000-0000-0000-000000000005_OH-000000607",
+      "policyNumber": "OH-000000607",
+      "recipients": [
+        {
+          "address": {
+            "city": "Jacksonville",
+            "county": "Duval",
+            "line1": "13024 Pechora Ct",
+            "postalCode": "32246",
+            "state": "FL"
+          },
+          "email": "john@test.com",
+          "firstName": "John",
+          "isDefaultRecipient": true,
+          "lastName": "Doe",
+          "partyType": "Consumer"
+        }
+      ],
+      "referenceId": "00000000-0000-0000-0000-000000000005_OH-000000607",
+      "referenceNumber": "OH-000000607",
+      "shippingEmail": "john@test.com",
+      "shippingFirstName": "John",
+      "shippingLastName": "Doe"
+    }
+  }
+}

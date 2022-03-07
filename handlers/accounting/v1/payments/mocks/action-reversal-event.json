@@ -1,0 +1,61 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/accounting/v1/00000000-0000-0000-0000-000000000005_OH-000001205/action",
+  "body": {
+    "action": "Reversal",
+    "description": "Payment Reversal",
+    "entityId": "00000000-0000-0000-0000-000000000005",
+    "isNsf": false,
+    "reason": "Placeholder reason",
+    "payment": {
+      "accountLast4": null,
+      "cognitoUserId": "payments3011@test.com",
+      "confirmationNumber": null,
+      "customerId": "C000012713",
+      "description": "Premium Refund",
+      "batchId": "00000000-0000-0000-0000-000000000005_20211205AM",
+      "details": [
+        {
+          "description": null,
+          "lineItems": [
+            {
+              "account": "Main",
+              "amount": 222,
+              "itemType": "Premium",
+              "writingCompany": "FPIC"
+            }
+          ],
+          "subtotal": 222
+        }
+      ],
+      "images": [],
+      "paymentType": "Check",
+      "policyNumber": "OH-000001205",
+      "processedDateTime": "2021-11-30T14:43:02Z",
+      "productKey": "OpenHouse Choice Florida",
+      "provider": "VPay",
+      "providerFee": 0,
+      "providerReference": null,
+      "remainingBalance": 0,
+      "status": "Pending",
+      "subtotal": 222,
+      "subtotalPlusProviderFee": 222,
+      "type": "PMNT"
+    },
+    "policyNumber": "OH-000001205",
+    "termEffectiveDate": "2021-04-01",
+    "version": "5"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

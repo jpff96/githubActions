@@ -1,0 +1,25 @@
+{  
+  "httpMethod": "GET",
+  "headers": {
+    "origin": "http://localhost:3000"
+  },
+  "path": "/disbursement/v1/batch/list",  
+  "queryStringParameters": {
+    "batchType": "Batch",
+    "batchStateFilter": "None",
+    "disbursementStateFilter": "None",
+    "take": 15,
+    "lastEvaluatedKey": null,
+    "returnDisbursements": "true",
+    "startDateTime": "2021-12-10T00:00:00.000Z",
+    "endDateTime": "2021-12-13T23:59:59.999Z"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

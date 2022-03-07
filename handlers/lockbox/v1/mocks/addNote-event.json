@@ -1,0 +1,19 @@
+{  
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/lockbox/v1/00000000-0000-0000-0000-000000000005_2020122100001/transaction/2021000010002/note",
+  "body": {
+    "note": "This is my test note."
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

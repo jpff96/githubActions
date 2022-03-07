@@ -1,0 +1,20 @@
+{  
+  "httpMethod": "GET",
+  "headers": {
+    "origin": "http://localhost:3000"
+  },
+  "path": "/lockbox/v1/list",  
+  "queryStringParameters": {
+    "statusFilter": "NotReleased",
+    "take": 15,
+    "lastEvaluatedKey": null
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

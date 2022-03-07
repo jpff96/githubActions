@@ -1,0 +1,361 @@
+service: solstice-payment-api
+
+configValidationMode: error
+frameworkVersion: ^3.1.0
+
+plugins:
+  - serverless-prune-plugin
+  - serverless-webpack
+  - serverless-dynamodb-local
+  - serverless-offline
+
+package:
+  individually: true
+  patterns:
+    - '!.env'
+    - '!.gitignore'
+    - '!.prettierrc.json'
+    - '!CODEOWNERS'
+    - '!package-lock.json'
+    - '!package.json'
+    - '!README.md'
+    - '!.tsconfig.cjs.json'
+    - '!.tsconfig.json'
+    - '!bin/**'
+    - '!handlers/**'
+    - '!libs/**'
+
+custom:
+  Stack: solstice-api
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  stage: ${opt:stage, self:provider.stage}
+  prune:
+    automatic: true
+    number: 2
+    stage: dev
+    region: us-west-2
+  serverless-offline:
+    port: 4000
+  allowed-origin: '*'
+  allowed-headers:
+    - Content-Type
+    - X-Amz-Date
+    - Authorization
+    - X-Api-Key
+    - X-Amz-Security-Token
+    - X-Amz-User-Agent
+    - Facility-Ids
+    - Access-Token
+    - Company-id
+  dynamodb:
+    start:
+      migrate: true
+    stages:
+      - dev
+  balanceTableName: ${self:provider.stage}.${self:custom.Stack}.accounting.balance
+  billingTableName: ${self:provider.stage}.${self:custom.Stack}.accounting.billing
+  lockboxTableName: ${self:provider.stage}.${self:custom.Stack}.accounting.lockbox
+  disbursementTableName: ${self:provider.stage}.${self:custom.Stack}.accounting.disbursement
+  eventBusName: ${opt:logeventseventbusname, env:LOG_EVENTS_EVENT_BUS_NAME, ssm:/${self:provider.stage}/LOG_EVENTS_EVENT_BUS_NAME}
+  policyEventBusName: ${self:provider.stage}.${self:custom.Stack}.policy-events
+  policyEventBusARN: ${opt:policyeventbusarn, env:POLICY_EVENTS_EVENT_BUS_ARN, ssm:/${self:provider.stage}/POLICY_EVENTS_EVENT_BUS_ARN}
+  enableCron: ${opt:enableCron, false}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: us-west-2
+  tracing:
+    lambda: true
+  apiGateway:
+    restApiId:
+      'Fn::ImportValue': ${self:provider.stage}-${self:custom.Stack}-solsticeRestApiId
+    restApiRootResourceId:
+      'Fn::ImportValue': ${self:provider.stage}-${self:custom.Stack}-solsticeRootResourceId
+    restApiResources:
+      '/consumer':
+        Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-consumerRootPath
+
+  environment:
+    SOLSTICE_API_GW_ROOT_URL: ${opt:rootApi, env:SOLSTICE_API_GW_ROOT_URL, ssm:/${self:provider.stage}/SOLSTICE_API_GW_ROOT_URL}
+    SOLSTICE_API_GW_CONSUMER_ROOT_URL: ${opt:consumerApi, env:SOLSTICE_API_GW_CONSUMER_ROOT_URL, ssm:/${self:provider.stage}/CONSUMER/REACT_APP_SOLSTICE_HOST}
+    BALANCE_TABLE_NAME: ${self:custom.balanceTableName}
+    BILLING_TABLE_NAME: ${self:custom.billingTableName}
+    LOCKBOX_TABLE_NAME: ${self:custom.lockboxTableName}
+    DISBURSEMENT_TABLE_NAME: ${self:custom.disbursementTableName}
+    EVENT_BUS_NAME: ${self:custom.eventBusName}
+    POLICY_EVENT_BUS_NAME: ${self:custom.policyEventBusName}
+    AWS_SERVICE_REGION: ${opt:dbuser, env:AWS_SERVICE_REGION, ssm:/${self:provider.stage}/AWS_SERVICE_REGION}
+    ENTITY_TABLE_NAME: ${opt:entitytablename, env:ENTITY_TABLE_NAME, ssm:/${self:provider.stage}/ENTITY_TABLE_NAME}
+    PRODUCT_TABLE_NAME: ${opt:producttablename, env:PRODUCT_TABLE_NAME, ssm:/${self:provider.stage}/PRODUCT_TABLE_NAME}
+    DOC_TABLE_NAME: ${opt:doctablename, env:DOC_TABLE_NAME, ssm:/${self:provider.stage}/DOC_TABLE_NAME}
+    DOC_STORAGE_BUCKET: ${opt:docstoragebucket, env:DOC_STORAGE_BUCKET, ssm:/${self:provider.stage}/DOC_STORAGE_BUCKET}
+    MEDIA_TABLE_NAME: ${self:provider.stage}.${self:custom.Stack}.media
+    BUCKET: ${self:provider.stage}.${self:custom.Stack}.media
+    DOCUMENT_STORAGE_BUCKET: ${opt:documentstoragebucket, env:DOCUMENT_STORAGE_BUCKET, ssm:/${self:provider.stage}/DOCUMENT_STORAGE_BUCKET}
+    PAYMENT_ENABLE_TRACE: ${opt:paymentenabletrace, env:PAYMENT_ENABLE_TRACE, ssm:/${self:provider.stage}/PAYMENT_ENABLE_TRACE}
+    ES_ENDPOINT: ${opt:esEndpoint, env:ES_ENDPOINT, ssm:/${self:provider.stage}/ES_ENDPOINT}
+    ES_PAYMENT_SEARCH_INDEX: ${opt:esPaymentSearchIndex, env:ES_PAYMENT_SEARCH_INDEX, ssm:/${self:provider.stage}/ES_PAYMENT_SEARCH_INDEX}
+    ES_LOCKBOX_SEARCH_INDEX: ${opt:esLockboxSearchIndex, env:ES_LOCKBOX_SEARCH_INDEX, ssm:/${self:provider.stage}/ES_LOCKBOX_SEARCH_INDEX}
+    ES_SEARCH_TYPE: ${opt:esSearchType, env:ES_SEARCH_TYPE, ssm:/${self:provider.stage}/ES_SEARCH_TYPE}
+    ES_USERNAME: ${opt:esUsername, env:ES_USERNAME, ssm:/${self:provider.stage}/ES_USERNAME}
+    ES_PASSWORD: ${opt:esPassword, env:ES_PASSWORD, ssm:/${self:provider.stage}/ES_PASSWORD}
+
+  vpc:
+    securityGroupIds:
+      - ${opt:secGroupId, env:SEC_GROUP_ID, ssm:/${self:provider.stage}/SEC_GROUP_ID}
+    subnetIds:
+      - ${opt:subnetId1, env:SUBNET_ID_1, ssm:/${self:provider.stage}/SUBNET_ID_1}
+      - ${opt:subnetId2, env:SUBNET_ID_2, ssm:/${self:provider.stage}/SUBNET_ID_2}
+      - ${opt:subnetId3, env:SUBNET_ID_3, ssm:/${self:provider.stage}/SUBNET_ID_3}
+
+  iam:
+    deploymentRole: ${opt:cfnRoleArn, env:CFN_ROLE_ARN, ssm:/${self:provider.stage}/CFN_ROLE_ARN}
+    role: ${opt:lambdaRoleArn, env:LAMBDA_ROLE_ARN, ssm:/${self:provider.stage}/LAMBDA_ROLE_ARN}
+
+  deploymentBucket:
+    name: ${opt:deploymentBucket, env:DEPLOYMENT_BUCKET, ssm:/${self:provider.stage}/DEPLOYMENT_BUCKET}
+
+functions:
+  mortgageelist:
+    handler: dist/handlers/mortgageeList/v1/mortgageeList.main
+    events:
+      - http:
+          path: payment/v1/mortgageeList
+          method: get
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+      - http:
+          path: consumer/payment/v1/mortgageeList
+          method: get
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-consumer-authorizer
+  #Bill2Pay
+  bill2pay:
+    handler: dist/handlers/bill2pay/main.main
+    events:
+      - http:
+          path: /payment/v1/bill2pay
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+      - http:
+          path: /payment/v1/bill2pay/{any+}
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+
+  # Accounting
+  accounting:
+    handler: dist/handlers/accounting/v1/main.main
+    events:
+      - http:
+          path: /accounting
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+      - http:
+          path: /accounting/unauth
+          method: any
+          private: true
+          cors:
+            origin: ${self:custom.allowed-origin}
+            headers: ${self:custom.allowed-headers}
+            allowCredentials: false
+      - http:
+          path: /accounting/{any+}
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+      - http:
+          path: /accounting/unauth/{any+}
+          method: any
+          private: true
+          cors:
+            origin: ${self:custom.allowed-origin}
+            headers: ${self:custom.allowed-headers}
+            allowCredentials: false
+  delinquency:
+    handler: dist/handlers/accounting/v1/schedule/delinquency.main
+    timeout: 900 # 15 min timeout
+    events:
+      - schedule:
+          rate: rate(5 minutes)
+          enabled: ${self:custom.enableCron}
+  invoicing:
+    handler: dist/handlers/accounting/v1/schedule/invoicing.main
+    timeout: 900 # 15 min timeout
+    events:
+      - schedule:
+          rate: rate(5 minutes)
+          enabled: ${self:custom.enableCron}
+  installment:
+    handler: dist/handlers/accounting/v1/schedule/installments.main
+    timeout: 900 # 15 min timeout
+    events:
+      - schedule:
+          rate: rate(5 minutes)
+          enabled: ${self:custom.enableCron}
+
+    #  Lockbox
+  lockbox:
+    handler: dist/handlers/lockbox/v1/main.main
+    timeout: 29 # Timeout set high to allow releasing batches
+    events:
+      - http:
+          path: /lockbox
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+      - http:
+          path: /lockbox/{any+}
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+  lockboxScheduled:
+    handler: dist/handlers/lockbox/v1/schedule/lockbox.main
+    timeout: 900 # 15 min timeout
+    events:
+      - schedule:
+          rate: rate(5 minutes)
+          enabled: ${self:custom.enableCron}
+
+  disbursement:
+    handler: dist/handlers/disbursement/v1/main.main
+    events:
+      - http:
+          path: /disbursement
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+      - http:
+          path: /disbursement/{any+}
+          method: any
+          cors: true
+          authorizer:
+            type: CUSTOM
+            authorizerId:
+              Fn::ImportValue: ${self:provider.stage}-${self:custom.Stack}-authorizer
+
+  disbursementEventHandler:
+    handler: dist/handlers/disbursement/v1/handlers/eventHandler.main
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.policyEventBusARN}
+          pattern:
+            source:
+              - api.policy
+              - api.claims
+              - api.documents
+            detail-type:
+              - PrintRequested
+              - DisbursementCreate
+              - ClaimDisbursementRequestEdit
+              - RequestDisbursementAction
+              - TransferDocumentResponse
+
+  disburse:
+    handler: dist/handlers/disbursement/v1/schedule/disburse.disburse
+    timeout: 900 # 15 min timeout
+    events:
+      - schedule:
+          rate: cron(0 15,22 * * ? *) # Everyday at 10:00 AM CT and 5:00 PM CT
+          enabled: ${self:custom.enableCron}
+
+  reconciliation:
+    handler: dist/handlers/vPay/v1/schedule/reconciliation.reconciliation
+    timeout: 900 # 15 min timeout
+    events:
+      - schedule:
+          rate: cron(0 9 * * ? *) # Everyday at 04:00 AM CT
+          enabled: ${self:custom.enableCron}
+
+  update-totals:
+    handler: dist/handlers/accounting/v1/triggers/updateTotals.main
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt:
+              - BalanceTable
+              - StreamArn
+  eventHandler:
+    handler: dist/handlers/accounting/v1/triggers/eventHandler.main
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.policyEventBusARN}
+          pattern:
+            source:
+              - api.policy
+            detail-type:
+              - BalanceDueChanged
+              - ProcessChangePayment
+              - PolicyCanceledRefund
+              - CreateDisbursement
+              - ProcessedRefund
+              - PolicyReinstatement
+              - RegenerateStatement
+              - PolicyIssuedChangeMortgagee
+      - eventBridge:
+          eventBus: ${self:custom.policyEventBusARN}
+          pattern:
+            source:
+              - api.payment
+            detail-type:
+              - DisbursementUpdated
+
+  #  Elasticsearch
+  dynamoToElastic:
+    handler: dist/handlers/elasticsearch/v1/dynamoToElastic.main
+    events:
+      - stream:
+          type: dynamodb
+          maximumRetryAttempts: 1
+          arn:
+            Fn::GetAtt:
+              - BalanceTable
+              - StreamArn
+      - stream:
+          type: dynamodb
+          maximumRetryAttempts: 1
+          arn:
+            Fn::GetAtt:
+              - LockboxTable
+              - StreamArn
+    role: ${opt:ddbToEsRoleArn, env:DDB_TO_ES_ROLE_ARN, ssm:/${self:provider.stage}/DDB_TO_ES_ROLE_ARN}
+
+resources:
+  - ${file(resources/balanceTable.yml)}
+  - ${file(resources/billingTable.yml)}
+  - ${file(resources/lockboxTable.yml)}
+  - ${file(resources/disbursementTable.yml)}

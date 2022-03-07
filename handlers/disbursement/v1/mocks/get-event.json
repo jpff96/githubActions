@@ -1,0 +1,15 @@
+{  
+  "httpMethod": "GET",
+  "headers": {
+    "origin": "http://localhost:3000"
+  },
+  "path": "/disbursement/v1/batch/00000000-0000-0000-0000-000000000005_20213024AM",
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

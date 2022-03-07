@@ -1,0 +1,23 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/accounting/v1/installments",
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  },
+  "body": {
+    "mainPremium": 2426,
+    "companionPremium": 50,
+    "totalFees": 62.05,
+    "totalTaxes": 4.2,
+    "effectiveDate": "2021-10-14"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/accounting/v1/00000000-0000-0000-0000-000000000005_OH-000004668/action",
+  "body": {
+    "action": "Transfer",
+    "description": "Transfer of payment",
+    "entityId": "00000000-0000-0000-0000-000000000005",
+    "isNsf": false,
+    "transferPolicyId": "00000000-0000-0000-0000-000000000005_OH-000004669",
+    "transferPolicyNumber": "OH-000004669",
+    "payment": {
+      "accountLast4": null,
+      "batchId": "006",
+      "checkNumber": 232323234380,
+      "confirmationNumber": "202012210000100001",
+      "customerId": "C000011496",
+      "description": "Premium Received",
+      "details": [
+        {
+          "invoiceNumber": "80193",
+          "lineItems": [
+            {
+              "account": "CompanionPolicyFee",
+              "amount": -35,
+              "itemType": "Fee",
+              "writingCompany": "FIUC"
+            },
+            {
+              "account": "EMPA",
+              "amount": -2,
+              "itemType": "Fee",
+              "writingCompany": "FPIC"
+            },
+            {
+              "account": "MainPolicyFee",
+              "amount": -25,
+              "itemType": "Fee",
+              "writingCompany": "FPIC"
+            },
+            {
+              "account": "DFS",
+              "amount": -4.2,
+              "itemType": "Tax",
+              "writingCompany": "FIUC"
+            },
+            {
+              "account": "FSLSO",
+              "amount": -0.05,
+              "itemType": "Tax",
+              "writingCompany": "FIUC"
+            },
+            {
+              "account": "Companion",
+              "amount": -50,
+              "itemType": "Premium",
+              "writingCompany": "FIUC"
+            },
+            {
+              "account": "Main",
+              "amount": -1885,
+              "itemType": "Premium",
+              "writingCompany": "FPIC"
+            }
+          ],
+          "subtotal": -2001.25
+        }
+      ],
+      "images": [
+        {
+          "name": "202105180000200023-F.png",
+          "side": "Front",
+          "token": "7e6dc942-806d-4242-b8f8-1cde55f6e834"
+        },
+        {
+          "name": "202105180000200023-R.png",
+          "side": "Back",
+          "token": "a3d13e2b-18a9-46bd-a210-c4d327fb2933"
+        },
+        {
+          "name": "202105180000200023-F.png",
+          "side": "Front",
+          "token": "d4a2fce7-7826-468f-b70b-6798c0c9ffba"
+        },
+        {
+          "name": "202105180000200023-R.png",
+          "side": "Back",
+          "token": "c453b1b0-11d3-46e3-b71f-91901d696586"
+        }
+      ],
+      "loanNumber": "123",
+      "paymentType": "Check",
+      "policyNumber": "OH-000004668",
+      "processedDateTime": "2021-11-11",
+      "provider": "Lockbox",
+      "providerFee": 0,
+      "providerReference": "2020122100001001",
+      "remainingBalance": 0,
+      "status": "None",
+      "subtotal": -2001.25,
+      "type": "PMNT"
+    },
+    "policyNumber": "OH-000004643",
+    "reason": "Other",
+    "termEffectiveDate": "2021-11-23",
+    "version": "5"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json"
+  },
+  "path": "/disbursement/v1",
+  "body": {
+    "amount": 700,
+    "approvalBy": "gfleitas@codigodelsur.com",
+    "approvalDateTime": "2021-04-21T15:47:45.710Z",
+    "catastropheType": "Hurricane",
+    "costType": "ExpenseDefenseAndCostContainment",
+    "coverage": "PropertyOtherStructures",
+    "deliveryMethod": "Standard",
+    "disbursementType": "Disbursement",
+    "lossDateTime": "2021-04-20T15:47:45.710Z",
+    "mailingAddress": {
+      "line1": "773 Benjamin Franklin Dr",
+      "city": "Sarasota",
+      "state": "FL",
+      "postalCode": "34236-2007"
+    },
+    "policyId": "00000000-0000-0000-0000-000000000005_OH-000000522",
+    "policyNumber": "OH-000000522",
+    "productKey": "OpenHouse Choice Florida",
+    "recipients": [
+      {
+        "address": {
+          "city": "Sarasota",
+          "line1": "773 Benjamin Franklin Dr",
+          "postalCode": "34236-2007",
+          "state": "FL"
+        },
+        "email": "recipient@user.com",
+        "firstName": "John",
+        "lastName": "Smith",
+        "isDefaultRecipient": true,
+        "partyType": "Consumer",
+        "phoneNumber": "5555-5555"
+      }
+    ],
+    "referenceId": "00000000-0000-0000-0000-000000000005_OH-000000522",
+    "referenceNumber": "OH-000000522",
+    "shippingEmail": "recipient@user.com",
+    "shippingFirstName": "John",
+    "shippingLastName": "Smith"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@user.com",
+      "isConsumer": "false"
+    }
+  }
+}

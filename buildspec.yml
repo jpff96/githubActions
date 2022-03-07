@@ -1,0 +1,28 @@
+version: 0.2
+env:
+  variables:
+    SLS_DEBUG: ''
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      # Installing serverless globally
+      - npm i -g serverless@3.1.1
+
+      # Workaround for npm fail
+      # - npm i @eclipsetechnology/eclipse-api-helpers
+      # - npm i @eclipsetechnology/entity-library
+      # - npm i @eclipsetechnology/media-library
+      # - npm i @eclipsetechnology/product-library
+
+      # Install node modules
+      - npm i
+  build:
+    commands:
+      - npm run build
+      - serverless deploy --stage $STAGE
+      - serverless deploy --stage $STAGE --config serverless-consumer.yml
+  post_build:
+    commands:
+      - node dist/migrations/index.js --stage=$STAGE

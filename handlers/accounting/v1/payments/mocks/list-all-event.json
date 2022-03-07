@@ -1,0 +1,16 @@
+{
+  "httpMethod": "GET",
+  "headers": {
+    "origin": "http://localhost:3000"
+  },
+  "path": "/accounting/v1/list/00000000-0000-0000-0000-000000000005_OH-000003583",
+  "queryStringParameters": {
+    "termEffectiveDate": "2021-08-04"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234"
+    }
+  }
+}

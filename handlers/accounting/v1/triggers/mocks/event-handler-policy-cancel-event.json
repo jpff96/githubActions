@@ -1,0 +1,84 @@
+{
+  "version": "0",
+  "id": "6e3b7688-ca19-2582-d279-c4facbc0dfd2",
+  "detail-type": "PolicyCanceledRefund",
+  "source": "api.policy",
+  "account": "200159443319",
+  "time": "2020-05-29T00:48:42Z",
+  "region": "us-west-2",
+  "resources": [],
+  "detail": {
+    "balanceDue": {
+      "balanceType": "Refund",
+      "subtotal": -1111.23,
+      "dueDate": "",
+      "description": "Refund on policy cancel",
+      "version": "2",
+      "lineItems": [
+        {
+          "amount": -1111.23,
+          "itemType": "Premium",
+          "account": "Main",
+          "writingCompany": "FPIC"
+        }
+      ],
+      "effectiveDate": "2021-04-15",
+      "policyNumber": "TESTPOLNUM"
+    },
+    "companionBalanceDue": {
+      "balanceType": "CompanionRefund",
+      "subtotal": -25.34,
+      "dueDate": "",
+      "description": "Refund on policy cancel",
+      "version": "1",
+      "lineItems": [
+        {
+          "amount": -25.34,
+          "itemType": "Premium",
+          "account": "Companion",
+          "writingCompany": "FIUC"
+        }
+      ],
+      "effectiveDate": "2021-04-15",
+      "policyNumber": "OHSD-TESTPOLNUM"
+    },
+    "refund": {
+      "balanceType": "Refund",
+      "subtotal": 50.23,
+      "dueDate": "",
+      "description": "Refund on policy cancel",
+      "version": "2",
+      "lineItems": [
+        {
+          "amount": 50.23,
+          "itemType": "Premium",
+          "account": "Main",
+          "writingCompany": "FPIC"
+        }
+      ],
+      "effectiveDate": "2021-04-15",
+      "policyNumber": "TESTPOLNUM"
+    },
+    "recipient": {
+      "address": {
+        "city": "Sarasota",
+        "line1": "773 Benjamin Franklin Dr",
+        "postalCode": "34236-2007",
+        "state": "FL"
+      },
+      "email": "john@user.com",
+      "firstName": "John",
+      "isDefaultRecipient": true,
+      "lastName": "Smith",
+      "partyType": "Consumer"
+    },
+    "key": {
+      "entityId": "00000000-0000-0000-0000-000000000005",
+      "policyId": "00000000-0000-0000-0000-000000000005_TESTPOLNUM",
+      "transEffectiveDate": "2021-04-15",
+      "termEffectiveDate": "2021-03-01",
+      "termExpirationDate": "2022-03-01",
+      "productKey": "OpenHouse Choice Florida"
+    }
+  }
+}

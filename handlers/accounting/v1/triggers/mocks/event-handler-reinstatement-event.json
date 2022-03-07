@@ -1,0 +1,55 @@
+{
+  "version": "0",
+  "id": "6e3b7688-ca19-2582-d279-c4facbc0dfd2",
+  "detail-type": "PolicyReinstatement",
+  "source": "api.policy",
+  "account": "200159443319",
+  "time": "2020-05-29T00:48:42Z",
+  "region": "us-west-2",
+  "resources": [],
+  "detail": {
+    "balanceDue": {
+      "balanceType": "Reinstatement",
+      "subtotal": 554.56,
+      "dueDate": "",
+      "description": "Reinstatement",
+      "version": "2",
+      "lineItems": [
+        {
+          "amount": 554.56,
+          "itemType": "Premium",
+          "account": "Main",
+          "writingCompany": "FPIC"
+        }
+      ],
+      "effectiveDate": "2021-04-15",
+      "policyNumber": "TESTPOLNUM",
+      "paymentReference": "PMNT_2021-08-18T19:29:55.017Z"
+    },
+    "companionBalanceDue": {
+      "balanceType": "Reinstatement",
+      "subtotal": 100,
+      "dueDate": "",
+      "description": "Reinstatement",
+      "version": "1",
+      "lineItems": [
+        {
+          "amount": 100,
+          "itemType": "Premium",
+          "account": "Companion",
+          "writingCompany": "FIUC"
+        }
+      ],
+      "effectiveDate": "2021-04-15",
+      "policyNumber": "OHSD-TESTPOLNUM"
+    },
+    "key": {
+      "entityId": "00000000-0000-0000-0000-000000000005",
+      "policyId": "00000000-0000-0000-0000-000000000005_TESTPOLNUM",
+      "transEffectiveDate": "2021-04-15",
+      "termEffectiveDate": "2021-03-01",
+      "termExpirationDate": "2022-03-01",
+      "productKey": "OpenHouse Choice Florida"
+    }
+  }
+}

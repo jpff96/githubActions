@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      # Installing serverless globally
+      - npm i -g serverless@3.1.1
+      # Installing mocha
+      - npm i -g mocha
+      - npm i -g ts-mocha
+      # Installing react and serverless dependencies
+      - npm i -g typescript
+      - npm i -g ts-node
+      - npm i
+  build:
+    commands:
+      - npm run test

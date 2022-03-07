@@ -1,0 +1,39 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "http://localhost:3000",
+    "content-type": "application/json",
+    "Authorization": "Bearer eyJraWQiOiI2aDZhSWNDVW1XcEpNaGlmZGVZRDVpd3loSnFLd1k5SWdKZXYxaURLWFJRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkYmFjNjFhNC04OTQ3LTQ3ZjItOGU0ZS1hMjNiYjJjYWU2YzgiLCJhdWQiOiJkcTdsaXJxNHB2czNtdGNibTUzcGpucm5hIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImV2ZW50X2lkIjoiNWExNGVjZWEtNzg0ZS00Zjg4LWFiZTAtNmJjOTI0Y2MxZGQyIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MDc0NTEzMTMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy13ZXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtd2VzdC0yX2lMTHdyV0FTdyIsImNvZ25pdG86dXNlcm5hbWUiOiJkYmFjNjFhNC04OTQ3LTQ3ZjItOGU0ZS1hMjNiYjJjYWU2YzgiLCJleHAiOjE2MDc0NTQ5MTQsImlhdCI6MTYwNzQ1MTMxNCwiZW1haWwiOiJtb29uXzY3c3NAaG90bWFpbC5jb20ifQ.g1YhBazPRgPXn3GI8HsBL5YUU8oZ6dLFjOSXXBMIumPoZtrlPM1jQRZVUroIqzO7WGERBMuXF9OFxSWO5CCTVCaG-24S6Q61agKKTsmTanXSgcEtKMcWdQfUuqRgqlxZReODnu4BVpeVVrA3Wen3Mymto1Lbv76EOZBNAsCwkAu9HyDt_2hhx9gfEPWT-Z0mStorzOa4enWUVW1ZV8AEK1lhCtjxlEjaYhV2YFd_HGuPL7joI-2Iki44XzppBp9XRiU5sEe5a2s5U4wSXn3RqrYgW5PMWJwSiQWrIBmGSD9oZSZX77UlsKRAGWvH--aLVEK55DWkVvv_c_tF9EKgJw"
+  },
+  "path": "/payment/v1/bill2pay/generateTransactionToken",
+  "body": {
+    "companionId": "asd",
+    "provider": "BILL2PAY",
+    "sdeType": "Payment",
+    "policyId": "00000000-0000-0000-0000-000000000005_TESTPOLNUM",
+    "policyNumber": "TESTPOLNUM",
+    "allowCreditCard": true,
+    "paymentPlan": "ElevenPay",
+    "paymentSource": "Portal",
+    "accountNumber": "OH000003005",
+    "productName": "OpenHouse Choice Florida",
+    "customerId": "C-5788927006",
+    "redirectHref": "http://local.openhouse.eclipse.tech:3000/dashboard",
+    "mainPremium": 3091.4,
+    "companionPremium": 144.83,
+    "dfsTax": 8.88,
+    "empa": 2,
+    "fslsoServiceFee": 0.01,
+    "companionPolicyFee": 25,
+    "mainPolicyFee": 35,
+    "effectiveDate": "2021-03-26",
+    "expirationDate": "2022-03-26"
+  },
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "d8648a81-0a34-4457-be6d-b2a1392692d7",
+      "isConsumer": "true"
+    }
+  }
+}

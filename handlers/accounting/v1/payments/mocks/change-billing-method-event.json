@@ -1,0 +1,21 @@
+{
+  "httpMethod": "POST",
+  "headers": {
+    "origin": "https://admin.openinsurance.com",
+    "content-type": "application/json"
+  },
+  "path": "/accounting/v1/changeBillingMethod",
+  "requestContext": {
+    "authorizer": {
+      "tenantId": "00000000-0000-0000-0000-000000000005",
+      "principalId": "cognitoIdentityId-USER-1234",
+      "email": "test@test.com",
+      "isConsumer": "false"
+    }
+  },
+  "body": {
+    "policyId": "00000000-0000-0000-0000-000000000005_OH-000001012",
+    "responsibleParty": "Mortgagee",
+    "paymentPlan": "FullPay"
+  }
+}
